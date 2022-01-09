@@ -1,0 +1,540 @@
+  [1m[35m (1.9ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateCustomers (20211213124111)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "customers" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "email" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20211213124111"]]
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateProducts (20211213124130)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "products" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "price" float, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20211213124130"]]
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateOrders (20211213124206)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "orders" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "customer_id" integer NOT NULL, "product_id" integer NOT NULL, "description" text, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_3dad120da9"
+FOREIGN KEY ("customer_id")
+  REFERENCES "customers" ("id")
+, CONSTRAINT "fk_rails_dfb33b2de0"
+FOREIGN KEY ("product_id")
+  REFERENCES "products" ("id")
+)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_orders_on_customer_id" ON "orders" ("customer_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_orders_on_product_id" ON "orders" ("product_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20211213124206"]]
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.6ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2021-12-13 12:42:20.564476"], ["updated_at", "2021-12-13 12:42:20.564476"]]
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Create (0.4ms)[0m  [1m[32mINSERT INTO "products" ("name", "price", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "Logo basis"], ["price", 10.0], ["created_at", "2021-12-13 12:42:50.112162"], ["updated_at", "2021-12-13 12:42:50.112162"]]
+  [1m[36mTRANSACTION (1.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mCustomer Create (0.4ms)[0m  [1m[32mINSERT INTO "customers" ("name", "email", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "Tjerk"], ["email", "tjerk.dijkstra@nhlstenden.com"], ["created_at", "2021-12-13 12:43:19.823843"], ["updated_at", "2021-12-13 12:43:19.823843"]]
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[36mcommit transaction[0m
+Started GET "/" for 127.0.0.1 at 2021-12-13 13:43:32 +0100
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /Users/e909/.rvm/gems/ruby-3.0.0/gems/railties-7.0.0.rc1/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/e909/.rvm/gems/ruby-3.0.0/gems/railties-7.0.0.rc1/lib/rails/templates/rails/welcome/index.html.erb (Duration: 11.4ms | Allocations: 712)
+Completed 200 OK in 67ms (Views: 18.5ms | ActiveRecord: 0.0ms | Allocations: 7099)
+
+
+Started GET "/" for 127.0.0.1 at 2021-12-13 13:43:34 +0100
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /Users/e909/.rvm/gems/ruby-3.0.0/gems/railties-7.0.0.rc1/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/e909/.rvm/gems/ruby-3.0.0/gems/railties-7.0.0.rc1/lib/rails/templates/rails/welcome/index.html.erb (Duration: 7.1ms | Allocations: 335)
+Completed 200 OK in 10ms (Views: 8.6ms | ActiveRecord: 0.0ms | Allocations: 1217)
+
+
+Started GET "/orders" for 127.0.0.1 at 2021-12-13 13:43:35 +0100
+Processing by OrdersController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering orders/index.html.erb within layouts/application
+  [1m[36mOrder Load (0.2ms)[0m  [1m[34mSELECT "orders".* FROM "orders"[0m
+  ↳ app/views/orders/index.html.erb:6
+  Rendered collection of templates [0 times] (Duration: 0.0ms | Allocations: 24)
+  Rendered orders/index.html.erb within layouts/application (Duration: 8.4ms | Allocations: 4923)
+  Rendered layout layouts/application.html.erb (Duration: 217.9ms | Allocations: 93762)
+Completed 200 OK in 229ms (Views: 219.5ms | ActiveRecord: 0.2ms | Allocations: 98669)
+
+
+Started GET "/orders/new" for 127.0.0.1 at 2021-12-13 13:43:37 +0100
+Processing by OrdersController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering orders/new.html.erb within layouts/application
+  Rendered orders/_form.html.erb (Duration: 25.2ms | Allocations: 5687)
+  Rendered orders/new.html.erb within layouts/application (Duration: 26.5ms | Allocations: 6014)
+  Rendered layout layouts/application.html.erb (Duration: 30.7ms | Allocations: 8079)
+Completed 200 OK in 39ms (Views: 31.5ms | ActiveRecord: 0.5ms | Allocations: 12980)
+
+
+Started GET "/orders/new" for 127.0.0.1 at 2021-12-13 13:45:51 +0100
+Processing by OrdersController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering orders/new.html.erb within layouts/application
+  Rendered orders/_form.html.erb (Duration: 10.9ms | Allocations: 5185)
+  Rendered orders/new.html.erb within layouts/application (Duration: 11.8ms | Allocations: 5483)
+  Rendered layout layouts/application.html.erb (Duration: 11.9ms | Allocations: 5563)
+Completed 500 Internal Server Error in 15ms (ActiveRecord: 0.0ms | Allocations: 6601)
+
+
+  
+ActionView::Template::Error (wrong number of arguments (given 3, expected 1..2)):
+    13: 
+    14:   <div>
+    15:     <%= form.label :customer_id, style: "display: block" %>
+    16:     <%= select_tag(:customer_id, options_for_select(1,2,3)) %>
+    17:   </div>
+    18: 
+    19:  
+  
+app/views/orders/_form.html.erb:16
+app/views/orders/_form.html.erb:1
+app/views/orders/new.html.erb:3
+Started GET "/orders/new" for 127.0.0.1 at 2021-12-13 13:45:58 +0100
+Processing by OrdersController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering orders/new.html.erb within layouts/application
+  Rendered orders/_form.html.erb (Duration: 2.5ms | Allocations: 2718)
+  Rendered orders/new.html.erb within layouts/application (Duration: 3.4ms | Allocations: 3014)
+  Rendered layout layouts/application.html.erb (Duration: 3.6ms | Allocations: 3093)
+Completed 500 Internal Server Error in 6ms (ActiveRecord: 0.0ms | Allocations: 4114)
+
+
+  
+ActionView::Template::Error (undefined method `map' for 1:Integer
+Did you mean?  tap):
+    13: 
+    14:   <div>
+    15:     <%= form.label :customer_id, style: "display: block" %>
+    16:     <%= select_tag(:customer_id, options_for_select(1)) %>
+    17:   </div>
+    18: 
+    19:  
+  
+app/views/orders/_form.html.erb:16
+app/views/orders/_form.html.erb:1
+app/views/orders/new.html.erb:3
+Started GET "/orders/new" for 127.0.0.1 at 2021-12-13 13:46:12 +0100
+Processing by OrdersController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering orders/new.html.erb within layouts/application
+  Rendered orders/_form.html.erb (Duration: 6.8ms | Allocations: 5125)
+  Rendered orders/new.html.erb within layouts/application (Duration: 7.7ms | Allocations: 5421)
+  Rendered layout layouts/application.html.erb (Duration: 7.9ms | Allocations: 5500)
+Completed 500 Internal Server Error in 11ms (ActiveRecord: 0.0ms | Allocations: 6515)
+
+
+  
+ActionView::Template::Error (undefined method `map' for Customer:Class
+Did you mean?  tap):
+    13: 
+    14:   <div>
+    15:     <%= form.label :customer_id, style: "display: block" %>
+    16:     <%= select_tag(:customer_id, options_for_select(Customer.map)) %>
+    17:   </div>
+    18: 
+    19:  
+  
+app/views/orders/_form.html.erb:16
+app/views/orders/_form.html.erb:1
+app/views/orders/new.html.erb:3
+Started GET "/orders/new" for 127.0.0.1 at 2021-12-13 13:48:14 +0100
+Processing by OrdersController#new as HTML
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  ↳ app/controllers/orders_controller.rb:15:in `new'
+  Rendering layout layouts/application.html.erb
+  Rendering orders/new.html.erb within layouts/application
+  Rendered orders/_form.html.erb (Duration: 3.1ms | Allocations: 2198)
+  Rendered orders/new.html.erb within layouts/application (Duration: 4.2ms | Allocations: 2494)
+  Rendered layout layouts/application.html.erb (Duration: 4.3ms | Allocations: 2573)
+Completed 500 Internal Server Error in 19ms (ActiveRecord: 0.9ms | Allocations: 8127)
+
+
+  
+ActionView::Template::Error (undefined method `map' for nil:NilClass):
+    13: 
+    14:   <div>
+    15:     <%= form.label :customer_id, style: "display: block" %>
+    16:     <%= options_from_collection_for_select(@customers, 'id', 'name') %>
+    17:   </div>
+    18: 
+    19:  
+  
+app/views/orders/_form.html.erb:16
+app/views/orders/_form.html.erb:1
+app/views/orders/new.html.erb:3
+Started GET "/orders/new" for 127.0.0.1 at 2021-12-13 13:48:33 +0100
+Processing by OrdersController#new as HTML
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  ↳ app/controllers/orders_controller.rb:15:in `new'
+  Rendering layout layouts/application.html.erb
+  Rendering orders/new.html.erb within layouts/application
+  [1m[36mCustomer Load (0.2ms)[0m  [1m[34mSELECT "customers".* FROM "customers"[0m
+  ↳ app/views/orders/_form.html.erb:16
+  Rendered orders/_form.html.erb (Duration: 7.7ms | Allocations: 4614)
+  Rendered orders/new.html.erb within layouts/application (Duration: 8.1ms | Allocations: 4719)
+  Rendered layout layouts/application.html.erb (Duration: 28.5ms | Allocations: 17772)
+Completed 200 OK in 44ms (Views: 29.8ms | ActiveRecord: 1.6ms | Allocations: 23401)
+
+
+Started GET "/orders/new" for 127.0.0.1 at 2021-12-13 13:49:00 +0100
+Processing by OrdersController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering orders/new.html.erb within layouts/application
+  [1m[36mCustomer Load (0.1ms)[0m  [1m[34mSELECT "customers".* FROM "customers"[0m
+  ↳ app/views/orders/_form.html.erb:16
+  Rendered orders/_form.html.erb (Duration: 4.8ms | Allocations: 2018)
+  Rendered orders/new.html.erb within layouts/application (Duration: 6.3ms | Allocations: 2339)
+  Rendered layout layouts/application.html.erb (Duration: 10.0ms | Allocations: 4683)
+Completed 200 OK in 14ms (Views: 12.1ms | ActiveRecord: 0.1ms | Allocations: 5745)
+
+
+  [1m[35m (1.3ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mCustomer Create (0.5ms)[0m  [1m[32mINSERT INTO "customers" ("name", "email", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "Patrick"], ["email", "je email"], ["created_at", "2021-12-13 12:49:34.177810"], ["updated_at", "2021-12-13 12:49:34.177810"]]
+  [1m[36mTRANSACTION (1.1ms)[0m  [1m[36mcommit transaction[0m
+Started GET "/orders/new" for 127.0.0.1 at 2021-12-13 13:49:42 +0100
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by OrdersController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering orders/new.html.erb within layouts/application
+  [1m[36mCustomer Load (0.2ms)[0m  [1m[34mSELECT "customers".* FROM "customers"[0m
+  ↳ app/views/orders/_form.html.erb:16
+  Rendered orders/_form.html.erb (Duration: 20.4ms | Allocations: 7472)
+  Rendered orders/new.html.erb within layouts/application (Duration: 22.5ms | Allocations: 8078)
+  Rendered layout layouts/application.html.erb (Duration: 149.4ms | Allocations: 41198)
+Completed 200 OK in 182ms (Views: 153.2ms | ActiveRecord: 1.2ms | Allocations: 54865)
+
+
+Started GET "/orders/new" for 127.0.0.1 at 2021-12-13 13:50:37 +0100
+Processing by OrdersController#new as HTML
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  ↳ app/controllers/orders_controller.rb:15:in `new'
+  Rendering layout layouts/application.html.erb
+  Rendering orders/new.html.erb within layouts/application
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products"[0m
+  ↳ app/views/orders/_form.html.erb:23
+  Rendered orders/_form.html.erb (Duration: 8.6ms | Allocations: 4814)
+  Rendered orders/new.html.erb within layouts/application (Duration: 9.6ms | Allocations: 5140)
+  Rendered layout layouts/application.html.erb (Duration: 25.0ms | Allocations: 18092)
+Completed 200 OK in 39ms (Views: 26.7ms | ActiveRecord: 1.6ms | Allocations: 24030)
+
+
+Started POST "/orders" for 127.0.0.1 at 2021-12-13 13:51:13 +0100
+Processing by OrdersController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "order"=>{"customer_id"=>"1", "description"=>"Hallo!"}, "Product"=>"1", "commit"=>"Create Order"}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/orders_controller.rb:29:in `block in create'
+  [1m[36mCustomer Load (0.1ms)[0m  [1m[34mSELECT "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/orders_controller.rb:29:in `block in create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  ↳ app/controllers/orders_controller.rb:29:in `block in create'
+  Rendering layout layouts/application.html.erb
+  Rendering orders/new.html.erb within layouts/application
+  Rendered orders/_form.html.erb (Duration: 5.0ms | Allocations: 3115)
+  Rendered orders/new.html.erb within layouts/application (Duration: 5.3ms | Allocations: 3193)
+  Rendered layout layouts/application.html.erb (Duration: 5.6ms | Allocations: 3272)
+Completed 500 Internal Server Error in 31ms (ActiveRecord: 0.6ms | Allocations: 15349)
+
+
+  
+ActionView::Template::Error (undefined method `map' for nil:NilClass):
+    20: 
+    21:   <div>
+    22:     <%= form.label :product_id, style: "display: block" %>
+    23:      <%= select_tag 'Product', options_from_collection_for_select(@products, 'id', 'name') %>
+    24:   </div>
+    25: 
+    26:   <div>
+  
+app/views/orders/_form.html.erb:23
+app/views/orders/_form.html.erb:1
+app/views/orders/new.html.erb:3
+app/controllers/orders_controller.rb:33:in `block (2 levels) in create'
+app/controllers/orders_controller.rb:28:in `create'
+Started GET "/orders/new" for 127.0.0.1 at 2021-12-13 13:51:28 +0100
+Processing by OrdersController#new as HTML
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  ↳ app/controllers/orders_controller.rb:15:in `new'
+  Rendering layout layouts/application.html.erb
+  Rendering orders/new.html.erb within layouts/application
+  [1m[36mProduct Load (0.3ms)[0m  [1m[34mSELECT "products".* FROM "products"[0m
+  ↳ app/views/orders/_form.html.erb:23
+  Rendered orders/_form.html.erb (Duration: 7.6ms | Allocations: 2978)
+  Rendered orders/new.html.erb within layouts/application (Duration: 8.2ms | Allocations: 3083)
+  Rendered layout layouts/application.html.erb (Duration: 23.5ms | Allocations: 15913)
+Completed 200 OK in 36ms (Views: 24.5ms | ActiveRecord: 1.6ms | Allocations: 21537)
+
+
+Started GET "/orders" for 127.0.0.1 at 2021-12-13 13:51:29 +0100
+Processing by OrdersController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering orders/index.html.erb within layouts/application
+  [1m[36mOrder Load (0.4ms)[0m  [1m[34mSELECT "orders".* FROM "orders"[0m
+  ↳ app/views/orders/index.html.erb:6
+  Rendered collection of templates [0 times] (Duration: 0.1ms | Allocations: 22)
+  Rendered orders/index.html.erb within layouts/application (Duration: 4.2ms | Allocations: 1087)
+  Rendered layout layouts/application.html.erb (Duration: 8.8ms | Allocations: 3164)
+Completed 200 OK in 14ms (Views: 12.6ms | ActiveRecord: 0.4ms | Allocations: 3630)
+
+
+Started GET "/orders/new" for 127.0.0.1 at 2021-12-13 13:51:30 +0100
+Processing by OrdersController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering orders/new.html.erb within layouts/application
+  [1m[36mProduct Load (0.4ms)[0m  [1m[34mSELECT "products".* FROM "products"[0m
+  ↳ app/views/orders/_form.html.erb:23
+  Rendered orders/_form.html.erb (Duration: 5.1ms | Allocations: 1540)
+  Rendered orders/new.html.erb within layouts/application (Duration: 5.6ms | Allocations: 1633)
+  Rendered layout layouts/application.html.erb (Duration: 9.2ms | Allocations: 3696)
+Completed 200 OK in 11ms (Views: 9.4ms | ActiveRecord: 0.4ms | Allocations: 4046)
+
+
+Started POST "/orders" for 127.0.0.1 at 2021-12-13 13:51:33 +0100
+Processing by OrdersController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "order"=>{"customer_id"=>"1", "description"=>"asadsadsa"}, "Product"=>"1", "commit"=>"Create Order"}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/orders_controller.rb:29:in `block in create'
+  [1m[36mCustomer Load (0.1ms)[0m  [1m[34mSELECT "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/orders_controller.rb:29:in `block in create'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  ↳ app/controllers/orders_controller.rb:29:in `block in create'
+  Rendering layout layouts/application.html.erb
+  Rendering orders/new.html.erb within layouts/application
+  [1m[36mProduct Load (0.1ms)[0m  [1m[34mSELECT "products".* FROM "products"[0m
+  ↳ app/views/orders/_form.html.erb:23
+  Rendered orders/_form.html.erb (Duration: 3.3ms | Allocations: 1742)
+  Rendered orders/new.html.erb within layouts/application (Duration: 3.6ms | Allocations: 1835)
+  Rendered layout layouts/application.html.erb (Duration: 6.5ms | Allocations: 3891)
+Completed 422 Unprocessable Entity in 17ms (Views: 7.0ms | ActiveRecord: 0.6ms | Allocations: 10297)
+
+
+Started POST "/orders" for 127.0.0.1 at 2021-12-13 13:51:38 +0100
+Processing by OrdersController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "order"=>{"customer_id"=>"1", "description"=>"asadsadsaasdsaads"}, "Product"=>"1", "commit"=>"Create Order"}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/orders_controller.rb:29:in `block in create'
+  [1m[36mCustomer Load (0.1ms)[0m  [1m[34mSELECT "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/orders_controller.rb:29:in `block in create'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  ↳ app/controllers/orders_controller.rb:29:in `block in create'
+  Rendering layout layouts/application.html.erb
+  Rendering orders/new.html.erb within layouts/application
+  [1m[36mProduct Load (0.1ms)[0m  [1m[34mSELECT "products".* FROM "products"[0m
+  ↳ app/views/orders/_form.html.erb:23
+  Rendered orders/_form.html.erb (Duration: 2.8ms | Allocations: 1736)
+  Rendered orders/new.html.erb within layouts/application (Duration: 3.4ms | Allocations: 1829)
+  Rendered layout layouts/application.html.erb (Duration: 5.9ms | Allocations: 3884)
+Completed 422 Unprocessable Entity in 11ms (Views: 6.3ms | ActiveRecord: 0.3ms | Allocations: 6838)
+
+
+Started POST "/orders" for 127.0.0.1 at 2021-12-13 13:51:39 +0100
+Processing by OrdersController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "order"=>{"customer_id"=>"1", "description"=>"asadsadsaasdsaads"}, "Product"=>"1", "commit"=>"Create Order"}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/orders_controller.rb:29:in `block in create'
+  [1m[36mCustomer Load (0.1ms)[0m  [1m[34mSELECT "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/orders_controller.rb:29:in `block in create'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  ↳ app/controllers/orders_controller.rb:29:in `block in create'
+  Rendering layout layouts/application.html.erb
+  Rendering orders/new.html.erb within layouts/application
+  [1m[36mProduct Load (0.1ms)[0m  [1m[34mSELECT "products".* FROM "products"[0m
+  ↳ app/views/orders/_form.html.erb:23
+  Rendered orders/_form.html.erb (Duration: 2.7ms | Allocations: 1736)
+  Rendered orders/new.html.erb within layouts/application (Duration: 2.9ms | Allocations: 1829)
+  Rendered layout layouts/application.html.erb (Duration: 6.5ms | Allocations: 3899)
+Completed 422 Unprocessable Entity in 11ms (Views: 7.2ms | ActiveRecord: 0.3ms | Allocations: 6861)
+
+
+Started POST "/orders" for 127.0.0.1 at 2021-12-13 13:51:40 +0100
+Processing by OrdersController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "order"=>{"customer_id"=>"1", "description"=>"asadsadsaasdsaads"}, "Product"=>"1", "commit"=>"Create Order"}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/orders_controller.rb:29:in `block in create'
+  [1m[36mCustomer Load (0.1ms)[0m  [1m[34mSELECT "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/orders_controller.rb:29:in `block in create'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  ↳ app/controllers/orders_controller.rb:29:in `block in create'
+  Rendering layout layouts/application.html.erb
+  Rendering orders/new.html.erb within layouts/application
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products"[0m
+  ↳ app/views/orders/_form.html.erb:23
+  Rendered orders/_form.html.erb (Duration: 3.6ms | Allocations: 1736)
+  Rendered orders/new.html.erb within layouts/application (Duration: 3.9ms | Allocations: 1829)
+  Rendered layout layouts/application.html.erb (Duration: 6.8ms | Allocations: 3884)
+Completed 422 Unprocessable Entity in 12ms (Views: 7.1ms | ActiveRecord: 0.3ms | Allocations: 6849)
+
+
+Started POST "/orders" for 127.0.0.1 at 2021-12-13 13:51:40 +0100
+Processing by OrdersController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "order"=>{"customer_id"=>"1", "description"=>"asadsadsaasdsaads"}, "Product"=>"1", "commit"=>"Create Order"}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/orders_controller.rb:29:in `block in create'
+  [1m[36mCustomer Load (0.1ms)[0m  [1m[34mSELECT "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/orders_controller.rb:29:in `block in create'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  ↳ app/controllers/orders_controller.rb:29:in `block in create'
+  Rendering layout layouts/application.html.erb
+  Rendering orders/new.html.erb within layouts/application
+  [1m[36mProduct Load (0.1ms)[0m  [1m[34mSELECT "products".* FROM "products"[0m
+  ↳ app/views/orders/_form.html.erb:23
+  Rendered orders/_form.html.erb (Duration: 3.0ms | Allocations: 1736)
+  Rendered orders/new.html.erb within layouts/application (Duration: 3.3ms | Allocations: 1829)
+  Rendered layout layouts/application.html.erb (Duration: 6.3ms | Allocations: 3884)
+Completed 422 Unprocessable Entity in 11ms (Views: 6.7ms | ActiveRecord: 0.3ms | Allocations: 6837)
+
+
+Started GET "/orders/new" for 127.0.0.1 at 2021-12-13 13:52:02 +0100
+Processing by OrdersController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering orders/new.html.erb within layouts/application
+  [1m[36mProduct Load (0.1ms)[0m  [1m[34mSELECT "products".* FROM "products"[0m
+  ↳ app/views/orders/_form.html.erb:23
+  Rendered orders/_form.html.erb (Duration: 8.9ms | Allocations: 4668)
+  Rendered orders/new.html.erb within layouts/application (Duration: 10.5ms | Allocations: 4966)
+  Rendered layout layouts/application.html.erb (Duration: 10.7ms | Allocations: 5045)
+Completed 500 Internal Server Error in 15ms (ActiveRecord: 0.1ms | Allocations: 6076)
+
+
+  
+ActionView::Template::Error (undefined method `product_id' for #<Product id: 1, name: "Logo basis", price: 10.0, created_at: "2021-12-13 12:42:50.112162000 +0000", updated_at: "2021-12-13 12:42:50.112162000 +0000">):
+    20: 
+    21:   <div>
+    22:     <%= form.label :product_id, style: "display: block" %>
+    23:      <%= select_tag 'Product', options_from_collection_for_select(@products, 'product_id', 'name') %>
+    24:   </div>
+    25: 
+    26:   <div>
+  
+app/views/orders/_form.html.erb:23
+app/views/orders/_form.html.erb:1
+app/views/orders/new.html.erb:3
+Started GET "/orders/new" for 127.0.0.1 at 2021-12-13 13:52:10 +0100
+Processing by OrdersController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering orders/new.html.erb within layouts/application
+  [1m[36mProduct Load (0.1ms)[0m  [1m[34mSELECT "products".* FROM "products"[0m
+  ↳ app/views/orders/_form.html.erb:23
+  Rendered orders/_form.html.erb (Duration: 3.3ms | Allocations: 2012)
+  Rendered orders/new.html.erb within layouts/application (Duration: 4.2ms | Allocations: 2333)
+  Rendered layout layouts/application.html.erb (Duration: 8.6ms | Allocations: 4692)
+Completed 200 OK in 11ms (Views: 10.1ms | ActiveRecord: 0.1ms | Allocations: 5754)
+
+
+Started GET "/orders/new" for 127.0.0.1 at 2021-12-13 13:52:31 +0100
+Processing by OrdersController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering orders/new.html.erb within layouts/application
+  [1m[36mProduct Load (0.1ms)[0m  [1m[34mSELECT "products".* FROM "products"[0m
+  ↳ app/views/orders/_form.html.erb:23
+  Rendered orders/_form.html.erb (Duration: 3.9ms | Allocations: 2005)
+  Rendered orders/new.html.erb within layouts/application (Duration: 5.1ms | Allocations: 2326)
+  Rendered layout layouts/application.html.erb (Duration: 9.6ms | Allocations: 4670)
+Completed 200 OK in 13ms (Views: 11.5ms | ActiveRecord: 0.1ms | Allocations: 5732)
+
+
+Started POST "/orders" for 127.0.0.1 at 2021-12-13 13:52:40 +0100
+Processing by OrdersController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "order"=>{"customer_id"=>"1", "description"=>"asdasdsadads"}, "product_id"=>"1", "commit"=>"Create Order"}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/orders_controller.rb:29:in `block in create'
+  [1m[36mCustomer Load (0.1ms)[0m  [1m[34mSELECT "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/orders_controller.rb:29:in `block in create'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  ↳ app/controllers/orders_controller.rb:29:in `block in create'
+  Rendering layout layouts/application.html.erb
+  Rendering orders/new.html.erb within layouts/application
+  [1m[36mProduct Load (0.1ms)[0m  [1m[34mSELECT "products".* FROM "products"[0m
+  ↳ app/views/orders/_form.html.erb:23
+  Rendered orders/_form.html.erb (Duration: 3.1ms | Allocations: 1737)
+  Rendered orders/new.html.erb within layouts/application (Duration: 3.4ms | Allocations: 1830)
+  Rendered layout layouts/application.html.erb (Duration: 6.4ms | Allocations: 3885)
+Completed 422 Unprocessable Entity in 12ms (Views: 6.8ms | ActiveRecord: 0.3ms | Allocations: 6837)
+
+
+Started GET "/orders/new" for 127.0.0.1 at 2021-12-13 13:54:05 +0100
+Processing by OrdersController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering orders/new.html.erb within layouts/application
+  [1m[36mProduct Load (0.1ms)[0m  [1m[34mSELECT "products".* FROM "products"[0m
+  ↳ app/views/orders/_form.html.erb:23
+  Rendered orders/_form.html.erb (Duration: 4.0ms | Allocations: 2012)
+  Rendered orders/new.html.erb within layouts/application (Duration: 5.8ms | Allocations: 2333)
+  Rendered layout layouts/application.html.erb (Duration: 9.8ms | Allocations: 4677)
+Completed 200 OK in 13ms (Views: 12.0ms | ActiveRecord: 0.1ms | Allocations: 5738)
+
+
+Started POST "/orders" for 127.0.0.1 at 2021-12-13 13:54:08 +0100
+Processing by OrdersController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "order"=>{"customer_id"=>"asddsadas", "product_id"=>"1", "description"=>"adsadsads"}, "commit"=>"Create Order"}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/orders_controller.rb:29:in `block in create'
+  [1m[36mCustomer Load (0.1ms)[0m  [1m[34mSELECT "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT ?[0m  [["id", 0], ["LIMIT", 1]]
+  ↳ app/controllers/orders_controller.rb:29:in `block in create'
+  [1m[36mProduct Load (0.1ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/orders_controller.rb:29:in `block in create'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  ↳ app/controllers/orders_controller.rb:29:in `block in create'
+  Rendering layout layouts/application.html.erb
+  Rendering orders/new.html.erb within layouts/application
+  [1m[36mProduct Load (0.1ms)[0m  [1m[34mSELECT "products".* FROM "products"[0m
+  ↳ app/views/orders/_form.html.erb:23
+  Rendered orders/_form.html.erb (Duration: 2.4ms | Allocations: 1778)
+  Rendered orders/new.html.erb within layouts/application (Duration: 2.7ms | Allocations: 1872)
+  Rendered layout layouts/application.html.erb (Duration: 5.0ms | Allocations: 3927)
+Completed 422 Unprocessable Entity in 10ms (Views: 5.7ms | ActiveRecord: 0.3ms | Allocations: 8387)
+
+
+Started POST "/orders" for 127.0.0.1 at 2021-12-13 13:54:12 +0100
+Processing by OrdersController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "order"=>{"customer_id"=>"1", "product_id"=>"1", "description"=>"adsadsads"}, "commit"=>"Create Order"}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/orders_controller.rb:29:in `block in create'
+  [1m[36mCustomer Load (0.1ms)[0m  [1m[34mSELECT "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/orders_controller.rb:29:in `block in create'
+  [1m[36mProduct Load (0.1ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/orders_controller.rb:29:in `block in create'
+  [1m[36mOrder Create (1.0ms)[0m  [1m[32mINSERT INTO "orders" ("customer_id", "product_id", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["customer_id", 1], ["product_id", 1], ["description", "adsadsads"], ["created_at", "2021-12-13 12:54:12.129970"], ["updated_at", "2021-12-13 12:54:12.129970"]]
+  ↳ app/controllers/orders_controller.rb:29:in `block in create'
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/orders_controller.rb:29:in `block in create'
+Redirected to http://127.0.0.1:3000/orders/1
+Completed 302 Found in 10ms (ActiveRecord: 1.9ms | Allocations: 4645)
+
+
+Started GET "/orders/1" for 127.0.0.1 at 2021-12-13 13:54:12 +0100
+Processing by OrdersController#show as TURBO_STREAM
+  Parameters: {"id"=>"1"}
+  [1m[36mOrder Load (0.2ms)[0m  [1m[34mSELECT "orders".* FROM "orders" WHERE "orders"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/orders_controller.rb:64:in `set_order'
+  Rendering layout layouts/application.html.erb
+  Rendering orders/show.html.erb within layouts/application
+  Rendered orders/_order.html.erb (Duration: 1.4ms | Allocations: 306)
+  Rendered orders/show.html.erb within layouts/application (Duration: 11.6ms | Allocations: 3564)
+  Rendered layout layouts/application.html.erb (Duration: 14.5ms | Allocations: 5619)
+Completed 200 OK in 19ms (Views: 15.4ms | ActiveRecord: 0.2ms | Allocations: 7129)
+
+
+Started GET "/orders" for 127.0.0.1 at 2021-12-13 13:54:20 +0100
+Processing by OrdersController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering orders/index.html.erb within layouts/application
+  [1m[36mOrder Load (0.6ms)[0m  [1m[34mSELECT "orders".* FROM "orders"[0m
+  ↳ app/views/orders/index.html.erb:6
+  Rendered collection of orders/_order.html.erb [1 times] (Duration: 0.8ms | Allocations: 309)
+  Rendered orders/index.html.erb within layouts/application (Duration: 4.4ms | Allocations: 1348)
+  Rendered layout layouts/application.html.erb (Duration: 8.3ms | Allocations: 3424)
+Completed 200 OK in 10ms (Views: 8.7ms | ActiveRecord: 0.6ms | Allocations: 3841)
+
+
